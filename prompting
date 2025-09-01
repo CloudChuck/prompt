@@ -1,0 +1,461 @@
+Here’s a compact, modular Prompt Bank for \[EXPERT]. Copy, fill brackets, run.
+
+# Prompt Bank — Top 1% Superuser Edition
+
+## 0) Universal Meta-Template
+
+```
+You are [ROLE]. Objective: [CLEAR GOAL].
+Inputs: [BULLET LIST OR PASTED DATA].
+Constraints: [TIME/LENGTH/LAWS/DOMAINS/ASSUMPTIONS].
+Style: [TONE/FORMAT].
+Output: [EXACT SCHEMA or MARKDOWN SECTIONS].
+Quality gates: [CHECKS to run before final].
+Return: [FINAL ONLY | FINAL + 3 BULLET RATIONALE].
+```
+
+### Add-on Toggles
+
+* Reasoning privacy: “Think stepwise privately. Output final with brief rationale.”
+* Adversarial check: “Test against edge cases A/B/C. Note failures.”
+* Alternatives: “Give 2 strategic options with trade-offs.”
+* Verification: “Add a self-check list and confirm each item.”
+
+---
+
+## 1) Output Schemas (drop-in)
+
+**JSON list**
+
+```
+Return JSON:
+{
+  "decision": "[one-line]",
+  "options": [{"name":"","pros":[],"cons":[],"risk":""}],
+  "next_steps": ["","",""]
+}
+Validate keys exist.
+```
+
+**Markdown brief**
+
+```
+## Summary
+## Key Points
+## Risks
+## Actions (D1/D7)
+```
+
+---
+
+## 2) Role Templates (plug any task)
+
+### 2.1 Senior Product Strategist
+
+```
+You are Senior Product Strategist.
+Objective: Decide [feature/initiative] for [context].
+Inputs: [user research, metrics].
+Constraints: [budget, timeline].
+Output: Markdown brief (Summary, JTBD, Options x2, Risks, D1/D7 actions).
+Quality gates: quantify impact and risk; cite assumptions.
+```
+
+### 2.2 Staff MLOps Engineer
+
+```
+You are Staff MLOps Engineer.
+Objective: Ship [ML system] from dev→prod.
+Inputs: [model, data shape, infra].
+Constraints: [latency X ms, PII rules, budget].
+Output: runbook (Arch diagram text, CI/CD steps, eval suite, rollback plan).
+Quality gates: include SLOs, monitoring, and failure modes.
+```
+
+### 2.3 Security & Privacy Officer
+
+```
+You are Security & Privacy Officer.
+Objective: Review [workflow] for PHI/PII risks.
+Inputs: [data flows, vendors].
+Constraints: [HIPAA, SOC2, local law].
+Output: risk register (threat, likelihood, impact, controls, owner, due date).
+Quality gates: map each control to a standard clause.
+```
+
+### 2.4 Staff Technical Writer
+
+```
+You are Staff Technical Writer.
+Objective: Create crisp docs for [audience].
+Inputs: [API/spec].
+Constraints: [≤800 words, example-first].
+Output: Docs with: Overview, Quickstart, Example, Error handling, FAQ.
+Quality gates: lint for ambiguity; add copy-paste examples.
+```
+
+---
+
+## 3) General Power Prompts
+
+### 3.1 Problem Decomposition
+
+```
+You are a Systems Thinker.
+Objective: Decompose [problem].
+Inputs: [context].
+Output: Inputs → Levers → Constraints → Metrics → 3-step plan.
+Quality gate: each step tied to a metric.
+```
+
+### 3.2 Decision Memo
+
+```
+You are a Decision Coach.
+Objective: Choose between [Option A/B/C].
+Inputs: [criteria + weights].
+Output: weighted score table + 1-line decision + top risk + mitigation.
+```
+
+### 3.3 High-Compression Summary
+
+```
+You are an Information Compressor.
+Objective: Summarize to 25% length.
+Inputs: [text].
+Constraints: preserve numbers, dates, decisions.
+Output: Bullets + “Unknowns” list.
+```
+
+### 3.4 Critique and Improve
+
+```
+You are a Ruthless Editor.
+Objective: Improve [draft] for clarity.
+Constraints: cut 20% words, keep facts.
+Output: Revised draft + diff bullets (what changed and why).
+```
+
+### 3.5 Prompt-to-Prompt
+
+```
+You are a Prompt Architect.
+Objective: Convert raw ask → world-class prompt.
+Inputs: [raw ask].
+Output: filled Universal Meta-Template + 3 refinement toggles.
+```
+
+---
+
+## 4) Code/Data Prompts
+
+### 4.1 Bug Triage
+
+```
+You are Principal Engineer.
+Objective: Find root cause of [bug].
+Inputs: error logs, snippet, expected/actual.
+Output: hypotheses ranked, minimal repro steps, fix patch sketch, test cases.
+```
+
+### 4.2 Data Cleaning Plan
+
+```
+You are Data Quality Lead.
+Objective: Clean dataset for modeling.
+Inputs: schema, sample rows.
+Output: issue list (nulls, outliers, leakage), fixes, validation checks, code stubs.
+```
+
+### 4.3 SQL Author with Guardrails
+
+```
+You are Senior Analytics Engineer.
+Objective: Write SQL for [question].
+Inputs: schema.
+Constraints: no cross joins; label assumptions.
+Output: SQL + test query to validate row counts + explanation in 3 bullets.
+```
+
+### 4.4 Regex Synthesizer
+
+```
+You are a Regex Generator.
+Objective: Extract [pattern] from text.
+Inputs: examples + counterexamples.
+Output: regex + explanation + edge-case tests.
+```
+
+---
+
+## 5) Research & Writing
+
+### 5.1 Evidence Table
+
+```
+You are a Research Synthesizer.
+Objective: Build evidence table on [topic].
+Inputs: source excerpts.
+Output: table (claim, evidence, strength, source id), then a 5-sentence synthesis.
+```
+
+### 5.2 POV-Free Explainer
+
+```
+You are a Neutral Explainer.
+Objective: Explain [concept] to [audience level].
+Constraints: no hype, define terms, simple example.
+Output: 6–8 bullets + small analogy.
+```
+
+---
+
+## 6) Healthcare AI — Clinical, Safety, RCM
+
+### 6.1 Clinical Note Summarizer (Safety-aware)
+
+```
+You are a Clinical Informaticist.
+Objective: Summarize clinical notes for handoff.
+Inputs: [SOAP/free-text].
+Constraints: no diagnosis invention; flag uncertainty; no medical advice.
+Output: SBAR: Situation, Background, Assessment, Recommendation.
+Quality gates: list ambiguous items to confirm with clinician.
+```
+
+### 6.2 De-identification Planner
+
+```
+You are a PHI De-ID Specialist.
+Objective: Plan PHI removal from [dataset].
+Inputs: data fields, examples.
+Output: PHI types, detection methods, residual risk, QA protocol, re-ID risk note.
+```
+
+### 6.3 ICD-10/CPT Coding Assistant
+
+```
+You are a Medical Coding Auditor.
+Objective: Suggest probable ICD-10 and CPT candidates.
+Inputs: visit note.
+Constraints: show rationale and uncertainty; no final coding without human review.
+Output: table (code, descriptor, rationale, confidence, doc-needed).
+```
+
+### 6.4 Denial Management Playbook (RCM)
+
+```
+You are an RCM Denial Analyst.
+Objective: Produce a denial-resolution plan.
+Inputs: payer, denial code(s), claim data.
+Output: root cause, missing docs, appeal template outline, KPIs (AR days, CAR).
+Quality gates: include payer-specific nuance and deadlines.
+```
+
+### 6.5 Prior Auth & Eligibility Bot Spec
+
+```
+You are a Healthcare Ops Architect.
+Objective: Spec an agent to handle eligibility/prior auth.
+Inputs: payers, modalities, volumes.
+Output: flow (intake→verify→document→escalate), required fields, exception handling, audit log schema.
+```
+
+### 6.6 Clinical Safety Guardrails for LLM
+
+```
+You are an LLM Safety Engineer.
+Objective: Guardrail a clinical chatbot.
+Inputs: intents, disallowed content.
+Output: allow/deny matrix, refusal templates, escalation triggers, red-team test set.
+```
+
+---
+
+## 7) Tie-in: Ashwin’s RCM/AR Caller Tool
+
+(Optimized for multi-account AR calls, guided prompts, dynamic notes.)
+
+### 7.1 Call Orchestrator
+
+```
+You are an AR Call Orchestrator.
+Objective: Generate guided call script per account tab.
+Inputs: payer, claim id, denial reason, last notes.
+Constraints: concise, confirm facts, request missing docs.
+Output: Sections: Greeting, Verification, Targeted Questions (by denial), Notes stub, Next steps.
+```
+
+### 7.2 Dynamic Note Generator
+
+```
+You are an AR Note Scribe.
+Objective: Convert call transcript → structured note.
+Inputs: transcript, metadata.
+Output (JSON): {claim_id, payer, denial_code, facts_confirmed[], info_requested[], promised_actions[], followup_date, owner}.
+Quality gate: highlight any contradictions.
+```
+
+### 7.3 Denial Code Playbooks (Few-shot ready)
+
+```
+You are a Denial Playbook Builder.
+Objective: For [denial code], give cause, required docs, sample appeal outline, payer quirks, SLA.
+Inputs: payer, specialty.
+Output: one-pager + checklist.
+```
+
+### 7.4 QA & Compliance
+
+```
+You are Compliance QA.
+Objective: Check AR notes for PHI exposure and completeness.
+Inputs: note JSON.
+Output: pass/fail + missing fields + PHI hits + remediation steps.
+```
+
+---
+
+## 8) Automation & Content (n8n, YouTube)
+
+### 8.1 n8n Flow Designer
+
+```
+You are a Workflow Engineer.
+Objective: Design n8n flow: [trigger]→[LLM]→[TTS]→[S3]→[publish].
+Inputs: service limits, file paths.
+Output: nodes list, env vars, failure handling, retry/backoff, logging fields.
+```
+
+### 8.2 Shorts Script Generator
+
+```
+You are a Shorts Scriptwriter.
+Objective: 45–55s script on [topic].
+Constraints: hook in 2s, 3 beats, 1 CTA, ≤85 words.
+Output: Hook, Beat1, Beat2, Beat3, CTA.
+Quality gate: read-aloud timing ≤55s.
+```
+
+### 8.3 Thumbnail Text Variants
+
+```
+You are a Title/Thumb Optimizer.
+Objective: 8 title + 8 thumbnail text options.
+Constraints: ≤45 chars titles, ≤3 words thumb text, no clickbait claims.
+Output: tables with rationale column.
+```
+
+---
+
+## 9) Red Team, Eval, and Self-Correction
+
+### 9.1 Red Team My Output
+
+```
+You are a Red Team Reviewer.
+Objective: Break the proposal.
+Inputs: [output].
+Output: top 5 failure modes, exploit steps, impact, fixes. Then patched version.
+```
+
+### 9.2 Eval Set Builder
+
+```
+You are an Eval Designer.
+Objective: Build 12 test prompts for [task] including edge cases.
+Output: table (case, input, expected property, pass/fail rule).
+```
+
+### 9.3 Self-Check Wrapper
+
+```
+Before finalizing, run this checklist:
+- Factuality checked? Numbers/dates verified?
+- Constraints met? Length/format?
+- Risks listed? Next steps actionable?
+Return: “Checks passed: [Y/N]. If N, fix and re-issue.”
+```
+
+---
+
+## 10) Quick-Use Snippets
+
+**Refactor any draft**
+
+```
+Tighten by 20%, keep all facts, remove filler, preserve headings.
+```
+
+**Convert to Exec Brief**
+
+```
+Rewrite as 6 bullets: context, goal, options, decision, risks, actions.
+```
+
+**Create Dataset Spec**
+
+```
+List fields, types, null policy, provenance, quality checks, owners.
+```
+
+**Generate Meeting Notes from Transcript**
+
+```
+Output: Decisions, Owners→Deadlines, Open questions, Risks, Next agenda.
+```
+
+---
+
+## 11) One Worked Refinement (pattern to copy)
+
+**Raw ask:** “Make denial code playbooks.”
+**Pass 1**
+
+```
+Role: Denial Analyst. Goal: playbook for CO-97 for [payer].
+Inputs: [example claim].
+Constraints: ≤500 words.
+Output: cause, docs, steps, SLA.
+```
+
+**Pass 2 — Add payer nuance + metrics**
+
+```
+Add payer-specific nuances and common pitfalls. Include KPIs to watch (AR days, first-pass yield).
+```
+
+**Pass 3 — Add verification + JSON**
+
+```
+Add JSON block: {"root_cause":"","docs_needed":[],"appeal_deadline":"","risk":""}.
+Run self-check and confirm each field populated.
+```
+
+---
+
+## 12) Framework: Turn Any Raw Prompt → World-Class
+
+**G.O.A.L.–I.O.S.–V.E.T.**
+
+1. **G**oal: one clear outcome line.
+2. **O**utput: exact format or schema.
+3. **A**udience: who reads it and why.
+4. **L**imits: time, length, laws, accuracy bars.
+5. **I**nputs: paste data, links, assumptions.
+6. **O**ptions: request 2–3 alternatives with trade-offs.
+7. **S**elf-check: list checks and force a pass/fail.
+8. **V**erify: ask for edge cases/adversarial tests.
+9. **E**vidence: require citations or mark unknowns.
+10. **T**asks next: 3 concrete actions with owners/dates.
+
+**Refinement loop (30 seconds):**
+
+* Reduce ambiguity words.
+* Add numbers and dates.
+* Pin output length and structure.
+* Add a JSON or Markdown schema.
+* Add a self-check and one edge case.
+* Request “final only + brief rationale.”
+
+Use the meta-template, flip the toggles you need, and ship.
