@@ -1,0 +1,508 @@
+# Top-1% Prompt Bank — Expert Edition
+
+Reusable, modular templates. Role-based. Stepwise refinement. Healthcare AI + general use.
+
+---
+
+## How to use
+
+* Replace placeholders like `{{objective}}`, `{{inputs}}`, `{{constraints}}`.
+* Always add an **Output Contract**.
+* Ask for **Assumptions + Gaps** before final output.
+
+---
+
+# A) Universal High-Leverage Templates
+
+### 1) Task Planner
+
+**Role:** Senior Systems Architect
+**Prompt:**
+You are a Senior Systems Architect.
+Goal: `{{objective}}`.
+Inputs: `{{inputs}}`.
+Constraints: `{{constraints}}`.
+Produce:
+
+1. Assumptions and missing info.
+2. 3 solution options with trade-offs (table).
+3. Chosen plan with critical path steps.
+4. Risks and mitigations.
+   **Output Contract:** Markdown with sections. Keep under `{{limit}}` words.
+
+---
+
+### 2) Critique-then-Create
+
+**Role:** Principal Reviewer and Author
+**Prompt:**
+First **critique** the draft using a rubric. Then **rewrite**.
+Draft: `{{text}}`
+Rubric: clarity, structure, accuracy, audience fit, brevity (1–5 each).
+Deliver:
+
+* Score table with 1-sentence evidence per criterion.
+* Revised version meeting `{{style}}` and `{{tone}}`.
+* 3 optional variants.
+  **Output Contract:** One screen max per section.
+
+---
+
+### 3) Decision Memo (One-Pager)
+
+**Role:** Chief of Staff
+**Prompt:**
+Summarize decision for `{{stakeholders}}`.
+Context: `{{context}}`
+Options: `{{options}}`
+Recommend **one**. Include: costs, time, risks, next 3 actions.
+**Output Contract:** ≤300 words, bullets only.
+
+---
+
+### 4) SOC-Style Root Cause Outline
+
+**Role:** Incident Commander
+**Prompt:**
+Event: `{{incident}}`
+Timeline: `{{timestamps}}`
+Ask: Produce **5-Why**, primary RCA, contributing factors, containment, eradication, prevention.
+**Output Contract:** Table + checklist.
+
+---
+
+### 5) JSON-First Generator
+
+**Role:** Structured Output Engine
+**Prompt:**
+Generate only valid JSON for `{{objective}}`.
+Schema:
+
+```json
+{{schema}}
+```
+
+Validate fields. No prose. If info missing, return:
+
+```json
+{"status":"need_info","missing":["..."]}
+```
+
+---
+
+### 6) Explain-Like-I’m-Expert-But-Busy
+
+**Role:** Expert Explainer
+**Prompt:**
+Topic: `{{topic}}`.
+Audience: expert, 2-minute read.
+Deliver: TL;DR (≤50 words), 3 key insights, gotchas, one diagram in ASCII if useful.
+**Output Contract:** ≤200 words.
+
+---
+
+### 7) Red-Team my Plan
+
+**Role:** Adversarial Reviewer
+**Prompt:**
+Plan: `{{plan}}`
+Find failure modes, hidden assumptions, ethical/compliance issues, cost/time traps.
+Suggest minimal fixes with highest risk reduction.
+**Output Contract:** Ranked list.
+
+---
+
+### 8) Compare-and-Choose
+
+**Role:** Evaluator
+**Prompt:**
+Compare these `{{n}}` candidates against criteria `{{criteria}}`.
+Return a scored matrix, then pick a winner with 3 reasons and one caveat.
+**Output Contract:** Markdown table + 100-word summary.
+
+---
+
+### 9) Few-Shot Style Transfer
+
+**Role:** Stylist
+**Prompt:**
+Mimic the features shown in exemplars.
+Exemplar A: `{{text_A}}`
+Exemplar B: `{{text_B}}`
+Transform `{{source_text}}` keeping facts intact.
+**Output Contract:** New text only. List 5 style features applied.
+
+---
+
+### 10) Rigor-Mode Math/Logic
+
+**Role:** Formal Reasoner
+**Prompt:**
+Problem: `{{problem}}`
+Return: givens, goal, invariants, short derivation, final answer.
+**Output Contract:** Numbered steps, ≤10 lines.
+
+---
+
+# B) Code + Data Templates
+
+### 11) Spec → Code
+
+**Role:** Senior Engineer
+**Prompt:**
+Spec: `{{spec}}`
+Language: `{{lang}}`
+Env: `{{runtime}}`
+Deliver:
+
+* Minimal working example.
+* Comments only where non-obvious.
+* Quick test snippet.
+  **Output Contract:** One code block + a 5-line README.
+
+---
+
+### 12) Debug-Me Contract
+
+**Role:** Production Debugger
+**Prompt:**
+Symptom: `{{symptom}}`
+Context: `{{context}}`
+Logs/snippet:
+`{{code}}`
+Return: likely causes (ranked), probes to run, minimal patch, regression risks.
+**Output Contract:** Checklist.
+
+---
+
+### 13) Data Cleaning Plan
+
+**Role:** Data Steward
+**Prompt:**
+Dataset description: `{{dataset}}`
+Quality goals: `{{dq_goals}}`
+Return:
+
+* Column contract (name, type, allowed, null policy).
+* Cleansing steps in order.
+* Validation queries.
+  **Output Contract:** Markdown table + SQL snippets.
+
+---
+
+### 14) SQL From Plain English
+
+**Role:** SQL Generator
+**Prompt:**
+Schema:
+
+```sql
+{{ddl}}
+```
+
+Ask: `{{question}}`
+Constraints: `{{constraints}}`
+**Output Contract:** Final SQL only. Add a one-line comment on index use.
+
+---
+
+### 15) Doc → Table Extractor
+
+**Role:** Information Extractor
+**Prompt:**
+Input doc: `{{pasted_text}}`
+Extract into CSV with headers `{{headers}}`.
+Handle multi-line cells.
+**Output Contract:** CSV only.
+
+---
+
+# C) Content + Communication
+
+### 16) Executive Summary Compressor
+
+**Role:** Summarizer
+**Prompt:**
+Compress to 150 words for `{{exec_role}}`.
+Keep numbers and decisions. Remove fluff.
+Text: `{{text}}`
+**Output Contract:** 5 bullets + 1 line CTA.
+
+---
+
+### 17) Interview Q-Set
+
+**Role:** Hiring Manager
+**Prompt:**
+Role: `{{role}}`
+Skills: `{{skills}}`
+Generate 8 questions: 3 practical, 3 scenario, 2 red-flags.
+Add model answers rubric.
+**Output Contract:** Table.
+
+---
+
+### 18) Documentation Skeleton
+
+**Role:** Tech Writer
+**Prompt:**
+Create a concise doc outline for `{{project}}`: Overview, Setup, Usage, Troubleshooting, FAQ, Changelog.
+**Output Contract:** Headings + bullet points only.
+
+---
+
+# D) Automation / n8n / Ops
+
+### 19) Workflow Designer
+
+**Role:** Automation Architect
+**Prompt:**
+Goal: `{{goal}}`
+Apps: `{{apps}}`
+Events: `{{triggers}}`
+Return: nodes list, data contracts, retries/backoff, idempotency, observability metrics.
+**Output Contract:** Node diagram in text + JSON manifest.
+
+---
+
+### 20) Guardrail Checklist
+
+**Role:** Risk Officer
+**Prompt:**
+For this workflow `{{workflow}}`, list: PII/PHI touchpoints, storage locations, retention, masking, rate limits, abuse cases.
+**Output Contract:** Table + “ship/no-ship” gate.
+
+---
+
+# E) Healthcare AI / RCM (Expert)
+
+> Use for analysis and drafting. Final clinical or coding decisions must be validated against official guidelines and org policy.
+
+### 21) PHI De-Identification
+
+**Role:** HIPAA De-identifier
+**Prompt:**
+Text contains possible PHI.
+Task: remove all direct identifiers and generalize quasi-identifiers.
+Text: `{{clinical_text}}`
+**Output Contract:**
+
+* Cleaned text.
+* List of removed items by type (MRN, Name, DOB…).
+* Residual risk notes.
+
+---
+
+### 22) Clinical Note → Coder Summary
+
+**Role:** Coding Assistant
+**Prompt:**
+Input: provider note below.
+Extract for coder: chief complaint, pertinent positives/negatives, procedures, meds, labs, diagnoses candidates.
+Flag uncertainty.
+Note: `{{note}}`
+**Output Contract:** Table. Add ICD-10/CPT **candidates** with rationale. Include guideline references to check.
+
+---
+
+### 23) Denial Management Triage
+
+**Role:** RCM Denial Analyst
+**Prompt:**
+Claim meta: `{{claim_meta}}`
+Denial code: `{{code}}`
+Payer: `{{payer}}`
+Return: likely causes, required docs, time limits, appeal viability score (0–1), next steps script.
+**Output Contract:** Checklist + script.
+
+---
+
+### 24) Appeal Letter Draft
+
+**Role:** Appeal Writer
+**Prompt:**
+Create a concise appeal letter.
+Inputs: patient initials, DOS, claim ID, denial reason, clinical justification bullets, attached evidence list, payer policy citations.
+Tone: professional, factual.
+**Output Contract:** 250-word letter with placeholders clearly marked.
+
+---
+
+### 25) Prior Auth Quick Check
+
+**Role:** Utilization Review Assistant
+**Prompt:**
+Procedure: `{{cpt_or_proc}}`
+Payer: `{{payer}}`
+Member plan: `{{plan}}`
+Return: info checklist to gather, typical criteria, common pitfalls, escalation path.
+**Output Contract:** Table.
+
+---
+
+### 26) AR Caller Guided Script
+
+**Role:** AR Call Navigator
+**Prompt:**
+Goal: resolve `{{issue}}` on claim `{{claim_id}}`.
+Generate a call flow with branching questions, required fields capture, and end-call notes template.
+**Output Contract:** Stepwise flow + a compact notes block.
+
+---
+
+### 27) Eligibility/Benefits Summarizer
+
+**Role:** Benefits Analyst
+**Prompt:**
+Raw E\&B text: `{{benefits_text}}`
+Summarize: coverage, copays, coinsurance, deductibles, OON rules, exclusions, prior auth requirements.
+**Output Contract:** Table + red flags.
+
+---
+
+### 28) Clinical Risk Summary for Ops
+
+**Role:** Clinical Ops Analyst
+**Prompt:**
+Condition: `{{condition}}`
+Use-case: `{{use_case}}` (e.g., triage SMS, care gap outreach).
+Return: 5 risk signals, safe outreach messages, contraindications to avoid, consent notes.
+**Output Contract:** Bullets only.
+
+---
+
+# F) Research + Evidence
+
+### 29) Evidence Scan with Citations
+
+**Role:** Research Synthesizer
+**Prompt:**
+Question: `{{research_q}}`
+Scope: last `{{years}}` years, `{{domains}}`.
+Deliver: 5 key findings with citations, consensus vs contention, gaps for future work.
+**Output Contract:** Bulleted summary + reference list.
+
+---
+
+### 30) Policy Diff
+
+**Role:** Policy Analyst
+**Prompt:**
+Old policy excerpt: `{{old}}`
+New policy excerpt: `{{new}}`
+Return: diff table, operational impacts, playbook changes.
+**Output Contract:** Table + 5-bullet impact list.
+
+---
+
+# G) Safety, Compliance, and Constraints
+
+### 31) Compliance Gate
+
+**Role:** Compliance Checker
+**Prompt:**
+Task: `{{task}}`
+Jurisdiction: `{{jurisdiction}}`
+Data types: `{{data_types}}`
+Return: risks, prohibited actions, required approvals, storage rules, consent needs.
+**Output Contract:** Go/No-Go with rationale.
+
+---
+
+### 32) Red-Flag Detector
+
+**Role:** Ethics Sentinel
+**Prompt:**
+Review text for: bias, harmful advice, protected attributes, over-claiming.
+Text: `{{text}}`
+**Output Contract:** Flag list + safe rewrite.
+
+---
+
+# H) Role Packs (Drop-in “You are …” Headers)
+
+* **You are a Senior Systems Architect**: optimize for robustness, cost, and speed; show trade-offs.
+* **You are a Production Debugger**: reproduce, isolate, patch, prevent; no speculation without probes.
+* **You are a Coding Assistant for RCM**: suggest codes as candidates only; cite guideline sections to verify.
+* **You are a Risk Officer**: identify compliance gaps and propose minimal viable controls.
+* **You are an Automation Architect**: ensure idempotency, retries, observability, and data contracts.
+
+Copy any header above in front of other templates for stronger control.
+
+---
+
+# I) Stepwise Refinements (Plug-ins)
+
+Append any of these to a base prompt:
+
+* **Ask-Before-Answer:** “List missing info and assumptions first.”
+* **Boundary Setter:** “Stay within `{{scope}}`. If out of scope, say so.”
+* **Token Guard:** “Keep under `{{word_limit}}` words.”
+* **Style Lock:** “Use terse bullets. No filler.”
+* **Test Case:** “Add 3 negative test cases.”
+* **Quality Bar:** “State 3 ways your answer could be wrong.”
+* **Output Contract:** “Return only `{{format}}`.”
+* **Variant Generator:** “Give 2 alternatives with different trade-offs.”
+
+---
+
+# J) Micro-Prompts for Daily Use
+
+* **“Summarize to action list.”** → 5 bullets, owner, due date, blocker.
+* **“Translate for exec email.”** → 120 words, neutral tone, single ask.
+* **“Turn notes → minutes.”** → decisions, owners, deadlines.
+* **“Create scoreboard.”** → KPIs, targets, thresholds, color rules.
+* **“Risk register.”** → risk, likelihood, impact, owner, mitigation.
+
+---
+
+# K) World-Class Prompt Refinement Framework
+
+**Goal:** Upgrade any raw prompt into a winning one in 6 moves.
+
+1. **Scope**
+
+   * Write one-line objective. Add constraints.
+   * Template: “Goal: `{{objective}}`. Constraints: `{{constraints}}`.”
+
+2. **Context**
+
+   * Supply inputs, audience, environment.
+   * “Inputs: `{{inputs}}`. Audience: `{{audience}}`. Env: `{{env}}`.”
+
+3. **Role**
+
+   * Assign a role pack that matches the task.
+   * “You are `{{role}}`.”
+
+4. **Output Contract**
+
+   * Choose format, length, structure.
+   * “Return `{{format}}` with sections `{{sections}}`, ≤`{{limit}}` words.”
+
+5. **Quality Controls**
+
+   * Add Ask-Before-Answer, risks, tests.
+   * “List missing info first. Add 3 risks. Include 2 test cases.”
+
+6. **Iterate**
+
+   * Run once. Feed back gaps. Lock final.
+   * “Revise based on this feedback: `{{feedback}}`.”
+
+**Refinement Template (fill-in):**
+
+```
+You are {{role}}.
+Goal: {{objective}}.
+Inputs: {{inputs}}.
+Constraints: {{constraints}}.
+
+Before answering: list missing info and assumptions.
+Then deliver exactly this structure: {{sections}}.
+Output format: {{format}}, length ≤ {{limit}}.
+
+Quality: add 3 risks, 2 test cases, 1 alternative.
+```
+
+Use this bank as building blocks. Combine one **Role**, one **Core Template**, and 1–2 **Refinements**.
